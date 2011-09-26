@@ -18,18 +18,19 @@ class Dashboard extends CI_Controller {
     	$name = $this->input->post('name');
  
     	if($this->fridge_model->fridge_exists($name)) {
-    		echo 'Fridge already exists';
+    		echo true;
     	}else{
-    		echo 'Fridge added';
+    		echo false;
     	}
   	}//end add_fridge
 
 	public function remove_fridge() {
 		
 		$id = $this->input->post('id');
+		$name = $this->input->post('name');
 
 		$this->fridge_model->delete($id);
-		echo 'Fridge removed';
+		echo $name . ' removed';
 	}
 
 }
