@@ -39,9 +39,15 @@
 			
 			if($query->num_rows() == 0) {
 				
+				//new item so set the total and current amount to the quantity being added on creation
+				$item['current_amount'] = $item['quantity'];
+				$item['total'] = $item['quantity'];
+				
 				$this->db->insert('items', $item);
+				//return false if no item was found already
 				echo false;
 			}else{
+				//return true if an item with the same name was already found
 				echo true;
 			}
 		}
