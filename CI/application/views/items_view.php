@@ -18,6 +18,7 @@
 		$(document).ready(function(){
 				$('#add_item').click(function(){
 					$('#add_item').toggle();
+					$('.go_back').toggle();
 					$("#add_new_item").slideDown('slow');
 			});
 
@@ -50,9 +51,10 @@
 			});//end click function
 
 			$('#cancel').click(function() {			
-
+				
 				$('#add_new_item').slideUp('slow');
 				$('#add_item').toggle('slow');
+				$('.go_back').toggle('slow');
 			});
 
 
@@ -128,7 +130,8 @@
 		<input type="button" value="Add Item" name="button" id="add" class="submit" />
 		<a href="#" id="cancel">(Cancel)</a>
 	</form>
-	<a href="#" id="add_item">Add An Item</a>
+	<a href="#" id="add_item">Add An Item</a>&nbsp;&nbsp;
+	<div class="go_back"><?php echo anchor('dashboard/', ' Go Back'); ?></div><!-- end go_back -->
 	
 	
 	<div id="fancyModal" class="modal">

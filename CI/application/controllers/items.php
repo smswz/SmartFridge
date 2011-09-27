@@ -34,6 +34,10 @@
 			$data['fridge_id'] = $this->uri->segment(4);
 			$this->load->view('items_view', $data);
 		}
+		
+		public function add_item() {
+			
+		}
 	}
 	
 	
