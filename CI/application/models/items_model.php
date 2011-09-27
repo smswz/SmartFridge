@@ -31,6 +31,20 @@
 				return $data;
 			}
 		}
+		
+		public function add($item) {
+			
+			$search_criteria = array('name' => $item['name'], 'fridge_id' => $item['fridge_id']);
+			$query = $this->db->get_where('items', $search_criteria);
+			
+			if($query->num_rows() == 0) {
+				
+				$this->db->insert('items', $item);
+				echo false;
+			}else{
+				echo true;
+			}
+		}
 }
 /* End of file items_model.php */
 /* Location: ./application/models/items_model.php */

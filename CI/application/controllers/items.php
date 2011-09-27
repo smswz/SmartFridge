@@ -37,6 +37,13 @@
 		
 		public function add_item() {
 			
+			$item['name'] = $this->input->post('name');
+			$item['quantity'] = $this->input->post('quantity');
+			$item['fridge_id'] = $this->input->post('fridge_id');
+			
+			$query = $this->items_model->add($item);
+			
+			print_r($query);
 		}
 	}
 	

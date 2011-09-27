@@ -26,7 +26,8 @@
 
 				var item_data = {
 					name : $('#new_item_name').val(),
-					quantity : $('#new_item_name').val()
+					quantity : $('#new_item_quantity').val(),
+					fridge_id : $('#fridge_id').val()
 				};
 
 				$.ajax({
@@ -124,7 +125,8 @@
 			<label for="name">Item Name:</label>
 			<input type="text" name="name" value="" id="new_item_name" /> 	
 			<label for="name" style="padding-left: 24px;">Quantity:</label>
-			<input type="text" name="quantity" value="" id="new_item_quantity" />	
+			<input type="text" name="quantity" value="" id="new_item_quantity" />
+			<input type="hidden" name="fridge_id" value="<?php echo $fridge_id; ?>" id="fridge_id" />	
 		</fieldset><!--end user-details-->
 		
 		<input type="button" value="Add Item" name="button" id="add" class="submit" />
