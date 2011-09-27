@@ -5,12 +5,10 @@ class Dashboard extends CI_Controller {
 
 	public function index() {
 
-		//$this->load->model('fridge_model');
 		$this->load->library('table');
 		$data['fridges'] = $this->fridge_model->get_fridges();
 		$this->load->view('dashboard', $data);
 		
-		//$this->table->generate($this->fridge_model->
 	}
 	
 	public function add_fridge() {

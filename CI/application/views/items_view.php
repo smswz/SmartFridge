@@ -16,29 +16,30 @@
 		document.createElement('footer');
 
 		$(document).ready(function(){
-				$('#add_fridge').click(function(){
-					$('#add_fridge').toggle();
-					$("#add_new_fridge").slideDown('slow');
+				$('#add_item').click(function(){
+					$('#add_item').toggle();
+					$("#add_new_item").slideDown('slow');
 			});
 
 			$('#add').click(function() {
 
-				var fridge_data = {
-					name : $('#new_fridge_name').val(),
+				var item_data = {
+					name : $('#new_item_name').val(),
+					quantity : $('#new_item_name').val()
 				};
 
 				$.ajax({
 				   type: "POST",
-				   url: "<?php echo site_url('dashboard/add_fridge'); ?>",
-				   data: fridge_data,
+				   url: "<?php echo site_url('items/add_item'); ?>",
+				   data: item_data,
 				   success: function( msg ) {
 						//alert(msg);
 						
 						if( msg ) {
-							$( 'div.return_message' ).html( '<h3>Fridge Already Exist</h3><p>Please try a different name</p>' );
+							$( 'div.return_message' ).html( '<h3>Item Already Exist</h3><p>Please update the quantity instead</p>' );
 							$( 'div#fancyModal' ).addClass( "show" ).delay(2000).slideUp('fast');
 						}else{
-							$( 'div.return_message' ).html( '<h3>Fridge Added</h3>' );
+							$( 'div.return_message' ).html( '<h3>Item Added</h3>' );
 							$( 'div#fancyModal' ).addClass( "show" ).delay(2000).slideUp('fast');
    
 						}
@@ -50,14 +51,14 @@
 
 			$('#cancel').click(function() {			
 
-				$('#add_new_fridge').slideUp('slow');
-				$('#add_fridge').toggle('slow');
+				$('#add_new_item').slideUp('slow');
+				$('#add_item').toggle('slow');
 			});
 
 
 			$('.delete').click(function() {
 					var temp = (this.id).split(',');
-					var fridge_data = {
+					var item_data = {
 						id : temp[0],
 						name : temp[1]
 					};
@@ -66,10 +67,10 @@
 
 					$.ajax({
 					   type: "POST",
-					   url: "<?php echo site_url('dashboard/remove_fridge'); ?>",
+					   url: "<?php echo site_url('item/remove_item'); ?>",
 					   data: fridge_data,
 					   success: function(){
-								$( 'div.return_message' ).html( '<h3>Fridge Removed</h3>' );
+								$( 'div.return_message' ).html( '<h3>Item Removed</h3>' );
 								$( 'div#fancyModal' ).addClass( "show" ).delay(2000).slideUp('fast');
 					   }
 					 });
@@ -90,41 +91,44 @@
 	<header>
 	</header>
 	<div id="content">
-	<h1>Active Fridge List</h1>
+	<h1>Item List for <?php echo '<span style="color: #BBDB68; ">' . $fridge_name . '</span>'; ?></h1>
 		
-		<table border="0" cellpadding="4" cellspacing="0" id="fridge_data_table">
+		<table border="0" cellpadding="4" cellspacing="0" id="item_data_table">
 		<tr>
 			<th>ID</th>
 			<th>Name</th>
+			<th>Quantity</th>
+			<th>Added</th>
+			<th>Current Amount</th>
+			<th>Total</th>
 			<th>Remove</th>
 			</tr>
 
-		
-		
-		<?php foreach( $fridges as $values ):
-		 	echo '<tr><td>';
-			echo $values->id;
-			echo '</td>';
-			echo '<td>';
-			echo anchor('items/get_items_list/'. $values->id .'/'. $values->name, $values->name);
-			echo '</td>';
-			echo '<td><a class="delete" href="#" id="'. $values->id . ',' . $values->name .'" ><img src="' . base_url( 'images/delete.png' ) . '"</a></td></tr>';
+		<?php foreach( $items as $values ):
+			echo '<tr><td>' . $values->id . '</td>';
+			echo '<td>' . $values->name . '</td>';
+			echo '<td>' . $values->quantity . '</td>';
+			echo '<td>' . $values->date_added . '</td>';
+			echo '<td>' . $values->current_amount . '</td>';
+			echo '<td>' . $values->total . '</td>';
+			echo '<td>'. anchor('items/delete_item/'. $values->id . '/' . $fridge_id .'/'. $fridge_name, '<img src="' . base_url( 'images/delete.png' ) . '">'); 		
+			echo '</td></tr>';
 		endforeach; ?>
 		</table>	
-		
-		<!-- <input type="hidden" name="delete_fridge" id="delete_fridge" value="'. $values->id .'" /> -->
 	
-	<form id="add_new_fridge" method="post">
+	<form id="add_new_item" method="post">
 		<fieldset id="fridge-details">	
 			
-			<label for="name">Fridge Name:</label>
-			<input type="text" name="name" value="" id="new_fridge_name" /> 		
+			<label for="name">Item Name:</label>
+			<input type="text" name="name" value="" id="new_item_name" /> 	
+			<label for="name" style="padding-left: 24px;">Quantity:</label>
+			<input type="text" name="quantity" value="" id="new_item_quantity" />	
 		</fieldset><!--end user-details-->
 		
-		<input type="button" value="Add Fridge" name="button" id="add" class="submit" />
+		<input type="button" value="Add Item" name="button" id="add" class="submit" />
 		<a href="#" id="cancel">(Cancel)</a>
 	</form>
-	<a href="#" id="add_fridge">Add A Fridge</a>
+	<a href="#" id="add_item">Add An Item</a>
 	
 	
 	<div id="fancyModal" class="modal">

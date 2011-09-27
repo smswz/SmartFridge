@@ -25,7 +25,7 @@ label {
 	border: 1px solid #ddd; 
 	padding: 30px 40px 20px 40px; 
 	margin: 75px 0 0 0;
-	width: 715px;
+	width: 750px;
 	background: #fff;
 			
 	/* -- CSS3 - define rounded corners for the form -- */	
@@ -43,22 +43,27 @@ label {
 	box-shadow:0px 0 50px #ccc;		 		
 }	
 
-#add_new_fridge {
+#add_new_fridge, #add_new_item {
 	margin: 20px 0 0 107px;
 	display: none;
 }
 
-#add_fridge{
+#add_fridge {
 	color: #666;
 	margin-left: 107px;
 }
 
-#add_fridge a:hover {
+#add_fridge, .get_items a:hover {
 	color: #000;
 }
 
-#add_fridge:visited {
+#add_fridge, .get_items :visited {
 	color: #ddd;
+}
+
+.get_items {
+	color: #555;
+	text-decoration: none;
 }
 
 #cancel {
