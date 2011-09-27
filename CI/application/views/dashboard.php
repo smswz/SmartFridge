@@ -40,6 +40,7 @@
 						}else{
 							$( 'div.return_message' ).html( '<h3>Fridge Added</h3>' );
 							$( 'div#fancyModal' ).addClass( "show" ).delay(2000).slideUp('fast');
+							toggle_add_button('#add_new_fridge', '#add_fridge');
    
 						}
 				   }//end success function
@@ -49,11 +50,16 @@
 			});//end click function
 
 			$('#cancel').click(function() {			
-
-				$('#add_new_fridge').slideUp('slow');
-				$('#add_fridge').toggle('slow');
+				toggle_add_button('#add_new_fridge', '#add_fridge');
+				//$('#add_new_fridge').slideUp('slow');
+				//$('#add_fridge').toggle('slow');
 			});
-
+			
+			function toggle_add_button(div_selector, link) {
+				
+				$(div_selector).slideUp('slow');
+				$(link).toggle('slow');
+			}
 
 			$('.delete').click(function() {
 					var temp = (this.id).split(',');
@@ -97,10 +103,8 @@
 			<th>ID</th>
 			<th>Name</th>
 			<th>Remove</th>
-			</tr>
+		</tr>
 
-		
-		
 		<?php foreach( $fridges as $values ):
 		 	echo '<tr><td>';
 			echo $values->id;
@@ -124,6 +128,7 @@
 		<input type="button" value="Add Fridge" name="button" id="add" class="submit" />
 		<a href="#" id="cancel">(Cancel)</a>
 	</form>
+	
 	<a href="#" id="add_fridge">Add A Fridge</a>
 	
 	

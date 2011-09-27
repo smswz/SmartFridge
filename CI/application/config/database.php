@@ -47,6 +47,22 @@
 $active_group = 'default';
 $active_record = TRUE;
 
+$db['live']['hostname'] = 'web-db1.gatech.edu';
+$db['live']['username'] = 'user_smartFridge';
+$db['live']['password'] = 'qwerty';
+$db['live']['database'] = 'is_smartFridge';
+$db['live']['dbdriver'] = 'mysql';
+$db['live']['dbprefix'] = '';
+$db['live']['pconnect'] = TRUE;
+$db['live']['db_debug'] = TRUE;
+$db['live']['cache_on'] = FALSE;
+$db['live']['cachedir'] = '';
+$db['live']['char_set'] = 'utf8';
+$db['live']['dbcollat'] = 'utf8_general_ci';
+$db['live']['swap_pre'] = '';
+$db['live']['autoinit'] = TRUE;
+$db['live']['stricton'] = FALSE;
+
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
 $db['default']['password'] = 'root';
