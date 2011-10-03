@@ -34,8 +34,15 @@ const int muxS3 = 3;
 
 const int ledPin =  13;      // the number of the LED pin
 
+const String rootString = "/smartFridge/sqlite.php?put&fid=";
+const String fridgeID = String(2);
+const String eggID = "eggs";
+const String tempID = "temp";
+char temperatureFloat[32];
+
 // variables will change:
 int buttonsPressed = 0;
+int temperature = 0;
 
 
 void setup() {
@@ -59,9 +66,9 @@ void setInput(int buttonNumber)
 {
   // select input buttonNumber on the MUX 
   digitalWrite(muxS0, buttonNumber & 1);   
-  digitalWrite(muxS1, buttonNumber & 2); 
-  digitalWrite(muxS2, buttonNumber & 4); 
-  digitalWrite(muxS3, buttonNumber & 8);   
+  digitalWrite(muxS1, (buttonNumber & 2)>>1); 
+  digitalWrite(muxS2, (buttonNumber & 4)>>2); 
+  digitalWrite(muxS3, (buttonNumber & 8)>>3);   
 }
 
 void loop(){
@@ -71,7 +78,18 @@ void loop(){
     setInput(i);
     buttonsPressed += digitalRead(muxSigPin);
     delay(10);
-   } 
-  Serial.println(buttonsPressed, DEC);
+   }
+  //sprintf(temperatureFloat,"%.2d",(int)((analogRead(0) * .004882814 - .5) * 100));
+  temperature = (int)((analogRead(0) * .004882814 - .5) * 100 * 100);
+  Serial.println(rootString + fridgeID + "&sid=" + eggID + "&value=" + String(buttonsPressed));
+  Serial.println(rootString + fridgeID + "&sid=" + tempID + "&value=" + String(temperature / 100) + '.' + String(temperature%100));
+  
+  /* For Harrison
+  String url = rootString + fridgeID + "&sid=" + tempID + "&value=" + String(temperature / 100) + '.' + String(temperature%100);
+  char* urlBuffer[512];
+  url.toCharArray(urlBuffer,512);
+  */
+  
+  //Serial.println(buttonsPressed, DEC);
   delay(200);
 }
