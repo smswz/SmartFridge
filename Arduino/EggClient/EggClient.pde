@@ -79,8 +79,17 @@ bool sensorCovered(int sensorNumber){
 
 void loop(){
     // read the state of the photocell values:
-    while(sensorCovered(0)){};
-    while(!sensorCovered(0)){};
+    while(sensorCovered(0)){
+	static int counter = 0;
+	if(++counter == 10000){
+	    setInput(14);
+	    temperature = (int)((analogRead(0) * .004882814 - .5) * 100 * 100);
+	    //Serial.println(analogRead(0));
+	    Serial.println("Temperature: " + String(temperature / 100) + '.' + String(temperature % 100) + 'C');
+	    counter = 0;
+	}
+    }
+    while(!sensorCovered(0)){}
     
     eggsCovered = 0;
     for (int i=1; i < 10; i++){
