@@ -24,7 +24,7 @@ label {
 	float: left;
 	border: 1px solid #ddd; 
 	padding: 30px 40px 20px 40px; 
-	margin: 75px 0 0 0;
+	margin: 75px 0 20px 0;
 	width: 750px;
 	min-height: 800px;
 	background: #fff;
@@ -255,7 +255,7 @@ tr:last-child td.last {
 
 div#fancyModal h3, div#fancyModal p { text-shadow: 0px 1px 1px #fff; color: rgba(0,0,0,0.75); padding-bottom: 20px }
 div.modal a.button { float: right; overflow: hidden; }
-#fancyModal.show { -webkit-transform: translateY(250px); -moz-transform: translatey(150px); }
+#fancyModal.show { -webkit-transform: translateY(150px); -moz-transform: translatey(150px); }
 
 div#fancyModal h3 {
 	padding-left: 180px;

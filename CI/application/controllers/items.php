@@ -45,6 +45,12 @@
 			
 			print_r($query);
 		}
+		
+		public function cancel() {
+			
+			
+			$this->load->view('items_view', $data);
+		}
 	}
 	
 	
