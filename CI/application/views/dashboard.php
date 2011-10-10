@@ -31,17 +31,18 @@
 				   type: "POST",
 				   url: "<?php echo site_url('dashboard/add_fridge'); ?>",
 				   data: fridge_data,
-				   success: function( msg ) {
-						//alert(msg);
+				   success: function( html ) {
+						//alert(html);
 						
-						if( msg ) {
+						if( html == 1 ) {
 							$( 'div.return_message' ).html( '<h3>Fridge Already Exist</h3><p>Please try a different name</p>' );
 							$( 'div#fancyModal' ).addClass( "show" ).delay(2000).slideUp('fast');
 						}else{
 							$( 'div.return_message' ).html( '<h3>Fridge Added</h3>' );
 							$( 'div#fancyModal' ).addClass( "show" ).delay(2000).slideUp('fast');
+							$( '#fridge_data_table' ).append( html );
 							toggle_add_button('#add_new_fridge', '#add_fridge');
-   
+   						
 						}
 				   }//end success function
 				 });
@@ -77,6 +78,7 @@
 					   success: function(){
 								$( 'div.return_message' ).html( '<h3>Fridge Removed</h3>' );
 								$( 'div#fancyModal' ).addClass( "show" ).delay(2000).slideUp('fast');
+								/*$('#fridge_data_table').remove('tr#' + id);*/
 					   }
 					 });
 
@@ -106,7 +108,7 @@
 		</tr>
 
 		<?php foreach( $fridges as $values ):
-		 	echo '<tr><td>';
+		 	echo '<tr id="'. $values->id .'"><td>';
 			echo $values->id;
 			echo '</td>';
 			echo '<td>';
@@ -117,7 +119,6 @@
 		</table>	
 		
 		<!-- <input type="hidden" name="delete_fridge" id="delete_fridge" value="'. $values->id .'" /> -->
-	
 	<form id="add_new_fridge" method="post">
 		<fieldset id="fridge-details">	
 			
@@ -125,8 +126,10 @@
 			<input type="text" name="name" value="" id="new_fridge_name" /> 		
 		</fieldset><!--end user-details-->
 		
-		<input type="button" value="Add Fridge" name="button" id="add" class="submit" />
+		<input type="submit" value="Add Fridge" name="button" id="add" class="submit" />
 		<a href="#" id="cancel">(Cancel)</a>
+		
+		
 	</form>
 	
 	<a href="#" id="add_fridge">Add A Fridge</a>
@@ -145,8 +148,24 @@
 		<div id="fridge_deleted_notifier">
 			<h3></h3>
 		</div><!-- fridge_deleted_notifier -->
+		
+		<!--
+		<form method="post" action="<?php echo site_url('/arduino/get_arduino_data/5/2/0/4/38.7'); ?>">
+			<input type="hidden" name="query_string" id="query_string" value="<?php echo site_url('/arduino/get_arduino_data/fridgeID=5/eggID=2/egg_exists=0/tempID=4/temp=38.7');?>" />
+			<input type="submit" value="Send To Arduino" name="button2" class="submit" />
+		</form>	-->
+
+			
+			<!--echo anchor('arduino/get_arduino_data', 'Send Arduino Data');-->
+
 	</div><!-- content -->
 	<footer>
+		<?php 
+
+		echo anchor('arduino/update_temp/5/2/38.7'	, 'Update Temp'); 
+		echo '<br />';
+		echo anchor('arduino/update_eggs/4/1/10'	, 'Update Eggs'); 
+		?>
 	</footer>
 </body>
 </html>

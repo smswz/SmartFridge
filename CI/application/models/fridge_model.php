@@ -28,17 +28,26 @@
 			if($query->num_rows() > 0) {
 			
 				return true;
-				
-			}else{
-				$data = array('name' => $name);
-				$this->db->insert('fridge', $data);
-				return false;
-			}	
-		}//end fridge_exists
-		
-		public function delete($id) {
+			}
 			
+		}//end fridge_exists
+				
+		public function delete($id) {
+			//delete the fridge 
 			$this->db->delete('fridge', array('id' => $id)); 
+			
 		}//end delete
+		
+		public function get_fridge($name) {
+			//get the newest data on the fridge on search value name
+			$query = $this->db->get_where('fridge', array('name' => $name));
+			
+			foreach($query->result() as $row) {
+			
+				$data[] = $row;
+			}
+			return $data[0];
+
+		}
 	}//end class fridge_model
 ?>

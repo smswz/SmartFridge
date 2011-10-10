@@ -5,15 +5,13 @@
 	<title>Smart Fridge Admin Panel</title>
 	
 	<link rel="stylesheet" href="<?php echo base_url();?>css/style.css" type="text/css"/>
-	<?php
-			echo link_tag( 'http://fonts.googleapis.com/css?family=Droid Sans&subset=latin' );
-	?>
+	<?php echo link_tag( 'http://fonts.googleapis.com/css?family=Droid Sans&subset=latin' ); ?>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 
 	<script>
 		//for IE
-		document.createElement('header');
-		document.createElement('footer');
+		document.createElement( 'header' );
+		document.createElement( 'footer' );
 
 		$(document).ready(function(){
 				$('#add_item').click(function(){
@@ -105,19 +103,27 @@
 			<th>Current Amount</th>
 			<th>Total</th>
 			<th>Remove</th>
-			</tr>
+		</tr>
 
-		<?php foreach( $items as $values ):
-			echo '<tr><td>' . $values->id . '</td>';
-			echo '<td>' . $values->name . '</td>';
-			echo '<td>' . $values->quantity . '</td>';
-			echo '<td>' . $values->date_added . '</td>';
-			echo '<td>' . $values->current_amount . '</td>';
-			echo '<td>' . $values->total . '</td>';
-			echo '<td>'. anchor('items/delete_item/'. $values->id . '/' . $fridge_id .'/'. $fridge_name, '<img src="' . base_url( 'images/delete.png' ) . '">'); 		
-			echo '</td></tr>';
-		endforeach; ?>
-		</table>	
+		<?php 
+		if(empty($items)) {
+			//do nothing
+			echo('</table><h2 style="padding-bottom: 20px; text-align: center";>No Items Found</h2>');
+		}else{
+			
+			foreach( $items as $values ):
+				echo '<tr><td>' . $values->id . '</td>';
+				echo '<td>' . $values->name . '</td>';
+				echo '<td>' . $values->quantity . '</td>';
+				echo '<td>' . $values->date_added . '</td>';
+				echo '<td>' . $values->current_amount . '</td>';
+				echo '<td>' . $values->total . '</td>';
+				echo '<td>'. anchor('items/delete_item/'. $values->id . '/' . $fridge_id .'/'. $fridge_name, '<img src="' . base_url( 'images/delete.png' ) . '">'); 		
+				echo '</td></tr>';
+			endforeach; 
+			echo '</table>';
+		}?>
+	
 	
 	<form id="add_new_item" method="post">
 		<fieldset id="fridge-details">	

@@ -11,12 +11,13 @@
 	<header>
 	</header>
 	<div id="content">
-		
-
 		<?php 
-	
-			echo($test);
-	 ?>
+			if(isset($egg) && $egg == TRUE){
+				echo "Fridge ID: " . $fridge_id . "<br />Egg ID: " . $egg_id . "<br />Total Eggs: " . $egg_total . "<br />";
+			}else {
+				echo "Fridge ID: " . $fridge_id . "<br />Temp ID: " . $temp_id . "<br />Temp: " . $temp . "<br />";
+			}
+	 	?>
 	</div><!-- content -->
 	<footer>
 	</footer>
