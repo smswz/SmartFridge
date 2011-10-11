@@ -29,34 +29,38 @@ try {
     // outgoing call. The next two lines make that call
     // and say something.
     $tropo->call($session->getParameters("dial"), array("network" => "SMS"));
-    $tropo->say('WARNING: The fridge is too hot. You may want to check it!');
+	
+	if ($session->getParameters("dial") == "4049392627")
+	{
+		$contact = "Harrison Jones";
+	}
+	else
+	{
+		$contact = "";
+	}
+    $tropo->say('WARNING(' . $contact. '): The fridge is too hot. You may want to check it!');
   } else {
-    
+    if ($called['channel'] != "TEXT") {
     $caller = $session->getFrom();
-    $tropo->say('Thank you for calling SMARTFRIDGE.  ');
-	$tropo->say("Your phone number is " . $caller['id']);
+	
+	if ( $caller['id'] = "4049392627")
+	{
+		$name = "Harrison";
+	}
+	else
+	{
+		$name =  $caller['id'];
+	}
+    $tropo->say('Thank you ' .  $name . ' for calling SMARTFRIDGE.  Please visit the web interface for your refrigerator at smartfridge dot c o.dot.c c');
+	//$tropo->say("Your phone number is " . $caller['id']);
 
-	$called = $session->getTo();
+	//$called = $session->getTo();
 
 	// $called now has a hash containing the keys: id, name, channel, and network
-	$tropo->say("You called " . $called['id'] . " but you probably already knew that.");
+	//$tropo->say("You called " . $called['id'] . " but you probably already knew that.");
+	$tropo->say('Goodbye');
 	
-	if ($called['channel'] == "TEXT") {
-  // This is a text message
-  $tropo->say("You contacted me via text.");
-  
-  // The first text of the session is going to be queued and applied to the first
-  // ask statement you include...
-  $tropo->ask("This will catch the first text", array('choices' => '[ANY]'));
-
-  // ... or, you can grab that first text like this straight from the session.
-  //$messsage = $tropo->getInitialText();
-
-  //$tropo->say("You said " . $message);
-} else {
-  // This is a phone call
-  $tropo->say("Awww. How nice. You cared enough to call.");
-}
+	}
   }
   $tropo->renderJSON();
 } catch (TropoException $e) {
